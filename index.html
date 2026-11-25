@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>تبيّن .. قبل أن تثق</title>
+<meta name="description" content="أداة ذكية تساعدك على تحليل الروابط والمواقع ومعرفة ما إذا كانت آمنة أم احتيالية.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800&family=Noto+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="css/style.css?v=5">
+</head>
+<body data-view="home">
+
+<!-- ============ الأيقونات ============ -->
+<svg class="sprite" aria-hidden="true" width="0" height="0">
+  <defs>
+    <linearGradient id="gShield" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7a13a"/><stop offset=".5" stop-color="#ee6a2c"/><stop offset="1" stop-color="#f39a35"/>
+    </linearGradient>
+    <linearGradient id="gShieldIn" x1="1" y1="0" x2="0" y2="1">
+      <stop offset=".35" stop-color="#cfe2fb" stop-opacity="0"/><stop offset="1" stop-color="#a9cdf8"/>
+    </linearGradient>
+  </defs>
+
+  <symbol id="i-logo" viewBox="0 0 50 54">
+    <path d="M25 4c5 4.300 12 6.800 20.500 7.300v15C45.500 37.500 37 46 25 50.500 13 46 4.500 37.500 4.500 26.300v-15C13 10.800 20 8.300 25 4z" fill="url(#gShieldIn)" style="fill-opacity:var(--lin,1)"/>
+    <path d="M4.500 20v-8.700C13 10.800 20 8.300 25 4c5 4.300 12 6.800 20.500 7.300v15C45.500 37.500 37 46 25 50.500 14.800 46.700 7.300 39.700 5.200 30" fill="none" stroke="url(#gShield)" stroke-width="4" stroke-linecap="butt" stroke-linejoin="round"/>
+    <path class="logo-check" d="M14.500 27.500l8 8.200 14-14.700" fill="none" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+  <symbol id="i-home-fill" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.600 1.800 11.600c-.8.700-.3 1.900.7 1.900H4v7.200c0 .7.500 1.300 1.300 1.300h4.200v-6.200c0-.4.300-.7.700-.7h3.600c.4 0 .7.300.7.700V22h4.200c.7 0 1.300-.6 1.300-1.300v-7.200h1.500c1 0 1.500-1.200.7-1.900z"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.500 11.500 12 3l9.500 8.500"/><path d="M5 10v11h4.800v-6h4.400v6H19V10"/></g></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 11v6"/></g><circle cx="12" cy="7.200" r="1.400" fill="currentColor"/></symbol>
+  <symbol id="i-info-fill" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="currentColor"/><path d="M9.800 10.300h3.500v6.200h1.200v1.700H9.700v-1.700h1.200v-4.500H9.800z" fill="#fff"/><circle cx="12" cy="7" r="1.700" fill="#fff"/></symbol>
+  <symbol id="i-question-fill" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="currentColor"/><path d="M8.700 9.300a3.400 3.400 0 1 1 5.300 2.800c-1.300.8-1.900 1.300-1.900 2.600" fill="none" stroke="#fff" stroke-width="2.200" stroke-linecap="round"/><circle cx="12.050" cy="17.900" r="1.500" fill="#fff"/></symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.500 16.500c-.4-2-3-3.200-3-7.300a6.500 6.500 0 0 1 13 0c0 4.100-2.600 5.300-3 7.300z"/><path d="M10 21h4"/></g></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.900" stroke-linecap="round" stroke-linejoin="round"><path d="M14.500 3.500 15 9l5.500 1-5 2.800-.3 5.700-3.700-4.300-5.500 1.300 2.800-4.800-2.600-4.900 5.300 1.400z"/><path d="m7.500 16.500-5 5M20 3.500v3M18.500 5h3M19.500 17v2.500"/></g></symbol>
+  <symbol id="i-pad" viewBox="0 0 28 24"><g fill="none" stroke="currentColor" stroke-width="2.100" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h12c2.400 0 3.700 1.600 4.200 3.800l1.600 8.300c.5 2.700-.9 4.400-2.700 4.400-3.100 0-3.800-4.500-6.600-4.500h-5c-2.800 0-3.500 4.500-6.600 4.500-1.800 0-3.200-1.700-2.700-4.400l1.600-8.300C4.300 5.600 5.600 4 8 4z"/><path d="M9.200 7.800v4.400M7 10h4.400"/></g><circle cx="17.600" cy="11.600" r="1.350" fill="currentColor"/><circle cx="20.400" cy="8.600" r="1.350" fill="currentColor"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.100" stroke-linecap="round"><circle cx="12" cy="7" r="4.600"/><path d="M3 22v-1.500C3 17 5.800 15 9 15h6c3.200 0 6 2 6 5.500V22z" stroke-linejoin="round"/></g></symbol>
+  <symbol id="i-user-c" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.900"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="9.700" r="2.900"/><path d="M6 19.300c.8-2.700 3-4 6-4s5.200 1.300 6 4"/></g></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.200" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13.500a5 5 0 0 0 7.500.5l3-3a5 5 0 0 0-7-7l-1.800 1.700"/><path d="M14 10.500a5 5 0 0 0-7.500-.5l-3 3a5 5 0 0 0 7 7l1.800-1.700"/></g></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.500" stroke-linecap="round"><circle cx="10" cy="10" r="7.300"/><path d="m15.500 15.500 6.500 6.500"/></g></symbol>
+  <symbol id="i-scan" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7V4.500A2.500 2.500 0 0 1 4.500 2H7M17 2h2.500A2.500 2.500 0 0 1 22 4.500V7M22 17v2.500a2.500 2.500 0 0 1-2.500 2.500H17M7 22H4.500A2.500 2.500 0 0 1 2 19.500V17"/><circle cx="12" cy="12" r="5.600"/><path d="M6.800 12h10.400M8 9.200c2.400 1 5.600 1 8 0M8 14.800c2.400-1 5.600-1 8 0" stroke-width="1.500"/></g></symbol>
+  <symbol id="i-check-c" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="currentColor"/><path d="m6.800 12.400 3.700 3.700 7-7.600" fill="none" stroke="var(--tick,#fff)" stroke-width="2.800" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 26"><path d="M12 1.800c2.700 2.100 6 3.300 10 3.500v7.500c0 5.500-4 9.700-10 11.900C6 22.500 2 18.300 2 12.800V5.300C6 5.100 9.300 3.900 12 1.800z" fill="none" stroke="currentColor" stroke-width="2.100" stroke-linejoin="round"/></symbol>
+  <symbol id="i-shield-check" viewBox="0 0 24 26"><path d="M12 0c2.900 2.200 6.500 3.500 11 3.700v8.600c0 6.200-4.400 11-11 13.700C5.400 23.300 1 18.500 1 12.300V3.700C5.500 3.500 9.100 2.200 12 0z" fill="currentColor"/><path d="m7.200 12.900 3.500 3.400 6.200-6.800" fill="none" stroke="#fff" stroke-width="2.800" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-shield-excl" viewBox="0 0 24 26"><path d="M12 0c2.900 2.200 6.500 3.500 11 3.700v8.600c0 6.200-4.400 11-11 13.700C5.400 23.300 1 18.500 1 12.300V3.700C5.500 3.500 9.100 2.200 12 0z" fill="currentColor"/><path d="M10.600 7.300c0-.8.600-1.200 1.400-1.200s1.400.4 1.400 1.200l-.4 6.200c0 .6-.4.900-1 .9s-1-.3-1-.9z" fill="#fff"/><circle cx="12" cy="17.600" r="1.600" fill="#fff"/></symbol>
+  <symbol id="i-shield-phone" viewBox="0 0 26 26"><path d="M13 0c3.200 2 7 2.900 11.500 2.900v9.700c0 6.400-4.700 10.900-11.500 13.400C6.200 23.500 1.500 19 1.500 12.600V2.900C6 2.900 9.800 2 13 0z" fill="currentColor"/><path d="M9.400 6.900 11 10l-1.200 1.600c.9 1.900 2.300 3.300 4.300 4.300l1.600-1.200 3.100 1.600c-.2 1.900-1.300 2.900-3 2.900-4.700 0-9.300-4.700-9.300-9.300 0-1.700 1-2.800 2.900-3z" fill="#fff"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.100"><circle cx="12" cy="12" r="10"/><ellipse cx="12" cy="12" rx="4.700" ry="10"/><path d="M2.800 8.500h18.400M2.800 15.500h18.400"/></g></symbol>
+  <symbol id="i-id" viewBox="0 0 26 24"><g fill="currentColor"><rect x="1" y="1.500" width="24" height="3.600" rx="1.600"/><rect x="1" y="18.900" width="24" height="3.600" rx="1.600"/><circle cx="8.300" cy="9.600" r="2.300"/><path d="M3.800 16.800c.3-2.900 1.800-4.200 4.500-4.200s4.200 1.300 4.500 4.200z"/><rect x="14.500" y="7.500" width="9" height="2" rx=".6"/><rect x="14.500" y="11" width="9" height="2" rx=".6"/><rect x="14.500" y="14.500" width="9" height="2" rx=".6"/></g></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 26"><g fill="none" stroke="currentColor" stroke-width="2.400" stroke-linecap="round" stroke-linejoin="round"><rect x="1.800" y="4" width="20.400" height="20.300" rx="2.800"/><path d="M2 9.700h20M7.300 1.500v4.600M16.700 1.500v4.600"/></g></symbol>
+  <symbol id="i-gov" viewBox="0 0 26 26"><g fill="currentColor"><path d="M12.300.300h6.200l-1.500 1.700 1.500 1.700h-4.900v1.600a6.800 6.800 0 0 1 6.200 5.700H6.200a6.800 6.800 0 0 1 6.100-5.700z"/><rect x="2" y="12.200" width="22" height="2.300" rx=".5"/><rect x="4" y="15.700" width="3" height="5.600"/><rect x="9" y="15.700" width="3" height="5.600"/><rect x="14" y="15.700" width="3" height="5.600"/><rect x="19" y="15.700" width="3" height="5.600"/><rect x="1" y="22.500" width="24" height="3" rx=".7"/></g></symbol>
+  <symbol id="i-bank" viewBox="0 0 26 26"><g fill="currentColor"><path d="M13 .8 1.500 6.600v2.600h23V6.600z"/><rect x="4" y="11" width="3.600" height="9.600"/><rect x="11.200" y="11" width="3.600" height="9.600"/><rect x="18.400" y="11" width="3.600" height="9.600"/><rect x="1" y="22.300" width="24" height="3" rx=".7"/></g></symbol>
+  <symbol id="i-card" viewBox="0 0 28 22"><rect x="1.300" y="1.300" width="25.400" height="19.400" rx="2.600" fill="none" stroke="currentColor" stroke-width="2.600"/><rect x="1.500" y="5.700" width="25" height="6" fill="currentColor"/><rect x="5" y="15" width="6.200" height="2.200" rx=".6" fill="currentColor"/><rect x="18.500" y="14.800" width="4" height="2.600" rx=".6" fill="currentColor"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 28"><path d="M6.300 12V8a5.700 5.700 0 0 1 11.400 0v4" fill="none" stroke="currentColor" stroke-width="2.900"/><rect x="1.500" y="11" width="21" height="16" rx="2.800" fill="currentColor"/><circle cx="12" cy="17.700" r="2.100" fill="var(--tick,#fff)"/><path d="M11 18.500h2l.5 4.200h-3z" fill="var(--tick,#fff)"/></symbol>
+  <symbol id="i-ban" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.200"><circle cx="12" cy="12" r="10.500"/><path d="m4.700 4.700 14.600 14.600"/></g></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M9.800 1h4.400v8.300h4.100L12 16 5.700 9.300h4.100z" fill="currentColor"/><path d="M4 16.300 1.500 20.800h15M19.300 17l3.200 1.600-1 3.200" fill="none" stroke="currentColor" stroke-width="2.600" stroke-linejoin="round"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 26"><g fill="none" stroke="currentColor" stroke-width="2.300" stroke-linejoin="round"><path d="M1.500 5.500h21M8.300 5V2h7.400v3"/><path d="M4 6v16.200c0 1.200.8 2 2 2h12c1.200 0 2-.8 2-2V6"/><path d="M9.300 10.500v9M14.700 10.500v9" stroke-width="2.600"/></g></symbol>
+  <symbol id="i-horn" viewBox="0 0 28 24"><path d="M1 7.500h7.200v8.200H6.500l1.600 6.700c.2.700-.2 1.300-1 1.300H4.600L2.500 15.700H1z" fill="currentColor"/><path d="M9 8.200c5 0 8.700-1.900 11.700-5.700v18.200c-3-3.800-6.700-5.700-11.700-5.700z" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linejoin="round"/><path d="M23.500 8.800c2.700.6 2.700 5.100 0 5.700" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linecap="round"/><path d="M20.700 1v21" stroke="currentColor" stroke-width="2.400" stroke-linecap="round"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 26"><g fill="none" stroke="currentColor" stroke-width="2.200" stroke-linejoin="round"><rect x="7" y="7" width="15.500" height="17" rx="2.500"/><path d="M3.500 19.500V4.500a2.300 2.300 0 0 1 2.300-2.300h12"/></g></symbol>
+  <symbol id="i-tri" viewBox="0 0 26 24"><path d="M11.100 1.400a2.200 2.200 0 0 1 3.800 0l10.500 18.700c.8 1.500-.2 3.300-1.900 3.300h-21c-1.700 0-2.700-1.800-1.900-3.300z" fill="currentColor"/><path d="M11.700 8.200c0-.8.500-1.200 1.300-1.200s1.300.4 1.300 1.200l-.4 6.100c0 .6-.3.900-.9.900s-.9-.3-.9-.9z" fill="#fff"/><circle cx="13" cy="18.400" r="1.600" fill="#fff"/></symbol>
+  <symbol id="i-grad" viewBox="0 0 34 26"><g fill="currentColor"><path d="M17 1 1 8l16 7 16-7z"/><path d="M7 12.700v6.200c0 2.300 4.400 4.800 10 4.800s10-2.500 10-4.800v-6.200l-10 4.400z"/><path d="M29.800 10h2v10.500h-2z"/></g></symbol>
+  <symbol id="i-eyeoff" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.200" stroke-linecap="round" stroke-linejoin="round"><path d="M9.900 5.200A10 10 0 0 1 12 5c6 0 10 7 10 7a18 18 0 0 1-3 3.700M6.300 6.700A17.500 17.500 0 0 0 2 12s4 7 10 7a9.700 9.700 0 0 0 4.800-1.300"/><path d="M9.800 9.900a3 3 0 0 0 4.200 4.200M3 3l18 18"/></g></symbol>
+  <symbol id="i-text" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.400" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3M12 4v16M8.500 20h7"/></g></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.200" stroke-linejoin="round"><rect x="2" y="3" width="20" height="7.500" rx="2"/><rect x="2" y="13.500" width="20" height="7.500" rx="2"/></g><circle cx="6.500" cy="6.750" r="1.300" fill="currentColor"/><circle cx="6.500" cy="17.250" r="1.300" fill="currentColor"/></symbol>
+  <symbol id="i-unlock" viewBox="0 0 24 28"><path d="M6.300 12V8a5.700 5.700 0 0 1 11-2" fill="none" stroke="currentColor" stroke-width="2.900" stroke-linecap="round"/><rect x="1.500" y="11" width="21" height="16" rx="2.800" fill="currentColor"/></symbol>
+  <symbol id="i-off" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.200" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="m8 8 8 8M16 8l-8 8"/></g></symbol>
+  <symbol id="i-chev" viewBox="0 0 12 22"><path d="M10.500 1.500 2 11l8.500 9.500" fill="none" stroke="currentColor" stroke-width="2.600" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path fill="currentColor" d="M17.700 2.500h3.400l-7.400 8.500L22.400 22h-6.800l-5.300-7-6.100 7H.8l7.900-9.100L.4 2.500h7l4.800 6.400zm-1.200 17.600h1.900L6.400 4.300h-2z"/></symbol>
+  <symbol id="i-yt" viewBox="0 0 28 22"><path fill="currentColor" d="M5 1h18a4.500 4.500 0 0 1 4.500 4.500v11A4.500 4.500 0 0 1 23 21H5A4.500 4.500 0 0 1 .5 16.500v-11A4.500 4.500 0 0 1 5 1z"/><path d="m11.300 6.500 7.400 4.500-7.400 4.500z" fill="#173f86"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.200"><rect x="2" y="2" width="20" height="20" rx="5.500"/><circle cx="12" cy="12" r="4.600"/></g><circle cx="17.600" cy="6.400" r="1.400" fill="currentColor"/></symbol>
+  <symbol id="i-rosette" viewBox="0 0 40 40">
+    <g fill="none" stroke="currentColor" stroke-width="1.800">
+      <g id="ros"><ellipse cx="20" cy="9" rx="4.600" ry="7"/><ellipse cx="20" cy="31" rx="4.600" ry="7"/><ellipse cx="9" cy="20" rx="7" ry="4.600"/><ellipse cx="31" cy="20" rx="7" ry="4.600"/></g>
+      <g transform="rotate(45 20 20)"><ellipse cx="20" cy="9" rx="4.600" ry="7"/><ellipse cx="20" cy="31" rx="4.600" ry="7"/><ellipse cx="9" cy="20" rx="7" ry="4.600"/><ellipse cx="31" cy="20" rx="7" ry="4.600"/></g>
+      <circle cx="20" cy="20" r="4.200"/>
+    </g>
+  </symbol>
+</svg>
+
+<!-- ============ الشريط العلوي ============ -->
+<header class="top">
+  <div class="wrap top-in">
+    <a class="logo" href="#/" aria-label="تبيّن - الرئيسية">
+      <svg class="logo-ic"><use href="#i-logo"/></svg><span class="logo-tx">تَبَيَّن</span>
+    </a>
+    <nav class="nav" aria-label="القائمة الرئيسية">
+      <a class="nav-on" href="#/"><svg class="only-home"><use href="#i-home-fill"/></svg><svg class="only-result"><use href="#i-home"/></svg>الرئيسية</a>
+      <span class="nav-i"><svg><use href="#i-info"/></svg>عن المبادرة</span>
+      <span class="nav-i only-home"><svg><use href="#i-bulb"/></svg>نصائح أمنية</span>
+      <span class="nav-i only-result"><svg><use href="#i-spark"/></svg>نماذج احتيالية</span>
+      <span class="nav-i"><svg class="pad"><use href="#i-pad"/></svg>الاختبار العملي</span>
+    </nav>
+    <span class="acct">
+      <svg class="only-home"><use href="#i-user-c"/></svg><svg class="only-result"><use href="#i-user"/></svg>
+      <span class="only-home">دخول / حسابي</span><span class="only-result">دخول / حساب</span>
+    </span>
+  </div>
+</header>
+
+<!-- ============ الصفحة الرئيسية ============ -->
+<main id="home" class="view view-home">
+
+  <section class="hero">
+    <svg class="hero-l" viewBox="0 0 270 322" aria-hidden="true">
+      <circle cx="-8" cy="232" r="106" fill="#f6f4f9"/>
+      <path d="M0 240C70 255 140 290 200 307L300 330H0z" fill="#f3f5fb"/>
+      <path d="M0 224C75 237 150 276 258 308L203 308C140 290 70 256 0 241Z" fill="#f2882f"/>
+    </svg>
+    <svg class="hero-r" viewBox="0 0 200 130" aria-hidden="true"><path d="M30 130C75 62 130 24 200 8V130z" fill="#d3dbf1"/></svg>
+
+    <div class="wrap hero-in">
+      <div class="hero-art">
+        <svg viewBox="0 0 1491 726" role="img" aria-label="حاسب محمول عليه درع حماية وعدسة فحص">
+          <defs>
+            <linearGradient id="scr" x1="1" y1="0" x2=".3" y2="1"><stop offset="0" stop-color="#2f6fe0"/><stop offset=".45" stop-color="#1857c6"/><stop offset="1" stop-color="#08389f"/></linearGradient>
+            <linearGradient id="bez" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#39405f"/><stop offset="1" stop-color="#1a2549"/></linearGradient>
+            <linearGradient id="deck" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#d3d8e6"/><stop offset=".55" stop-color="#b9c0d3"/><stop offset="1" stop-color="#8b94ae"/></linearGradient>
+            <linearGradient id="edge" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8f97ad"/><stop offset=".6" stop-color="#78819a"/><stop offset="1" stop-color="#3d4663"/></linearGradient>
+            <linearGradient id="kbd" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8d95ad"/><stop offset=".5" stop-color="#4c567a"/><stop offset="1" stop-color="#59637f"/></linearGradient>
+            <linearGradient id="lens" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9dbdf6" stop-opacity=".75"/><stop offset="1" stop-color="#6f9bee" stop-opacity=".55"/></linearGradient>
+            <linearGradient id="ring" x1="0" y1=".3" x2="1" y2=".6"><stop offset="0" stop-color="#a9bbe6"/><stop offset=".45" stop-color="#7a86a8"/><stop offset=".75" stop-color="#4a5066"/><stop offset="1" stop-color="#3b4157"/></linearGradient>
+            <linearGradient id="warn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f5474b"/><stop offset="1" stop-color="#e21f2b"/></linearGradient>
+            <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#f1f4fb"/></linearGradient>
+            <filter id="soft" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="4" dy="9" stdDeviation="9" flood-color="#6e7fae" flood-opacity=".38"/></filter>
+            <filter id="blur"><feGaussianBlur stdDeviation="14"/></filter>
+            <clipPath id="scrClip"><path d="M466 136 910 68Q924 66 922 82L874 548Q872 560 860 560L408 546Q397 545 399 533L448 152Q450 139 466 136Z"/></clipPath>
+          </defs>
+
+          <ellipse cx="620" cy="668" rx="520" ry="20" fill="#8c9bc4" opacity=".35" filter="url(#blur)"/>
+          <ellipse cx="1040" cy="628" rx="170" ry="16" fill="#8c9bc4" opacity=".28" filter="url(#blur)"/>
+
+          <g filter="url(#soft)"><path d="M218 128 358 112Q376 110 377 128L384 262Q385 279 368 280L214 290Q198 291 198 274L202 146Q202 130 218 128Z" fill="url(#tile)" opacity=".75"/></g>
+          <g filter="url(#soft)"><path d="M104 356 260 350Q278 349 278 366L268 512Q267 530 249 530L97 530Q80 530 81 512L86 374Q87 357 104 356Z" fill="url(#tile)"/></g>
+          <g filter="url(#soft)"><path d="M1062 106 1208 98Q1225 97 1225 114L1218 264Q1217 281 1200 281L1050 282Q1033 282 1034 265L1044 124Q1045 107 1062 106Z" fill="url(#tile)"/></g>
+          <g filter="url(#soft)"><path d="M1080 352 1282 340Q1301 339 1300 358L1288 502Q1286 520 1268 520L1092 520Q1075 520 1076 503L1063 371Q1062 353 1080 352Z" fill="url(#tile)" opacity=".85"/></g>
+
+          <path d="M290 97Q297 92 304 101L354 232Q360 248 344 249L226 252Q209 252 215 236L279 108Q283 100 290 97Z" fill="url(#warn)" stroke="#f9a7a4" stroke-width="3"/>
+          <path d="M290 146 286 200" stroke="#fff" stroke-width="16" stroke-linecap="round"/><circle cx="283" cy="224" r="9" fill="#fff"/>
+
+          <path d="M124 392 222 394Q236 394 235 408L228 478Q227 492 213 491L121 490Q108 490 109 476L112 404Q113 392 124 392Z" fill="#123f9b"/>
+          <path d="M113 424 234 420" stroke="#e9effb" stroke-width="10"/><ellipse cx="140" cy="424" rx="16" ry="9" fill="#fff"/>
+          <path d="M128 460 158 460M174 462 178 462M196 460 208 460" stroke="#fff" stroke-width="13" stroke-linecap="round"/>
+
+          <g fill="none" stroke="#3a4767" stroke-width="8"><ellipse cx="1123" cy="187" rx="48" ry="53"/><ellipse cx="1123" cy="187" rx="21" ry="53"/><path d="M1079 166H1168M1079 210H1167" stroke-width="7"/></g>
+          <path d="M1120 403 1238 403M1120 446 1190 446" stroke="#c3c7dc" stroke-width="15" stroke-linecap="round"/>
+          <path d="M1304 192 1341 142M1328 247 1378 226" stroke="#f08a3c" stroke-width="18" stroke-linecap="round"/>
+
+          <!-- قاعدة الحاسب -->
+          <path d="M42 622 620 660 888 580 884 606 640 678Q626 683 610 682L64 646Q42 644 42 632Z" fill="url(#edge)"/>
+          <path d="M44 620Q40 616 52 612L384 548 890 572Q898 576 886 584L646 654Q628 661 606 660L60 628Q46 627 44 620Z" fill="url(#deck)"/>
+          <path d="M248 584 372 559 788 578 668 612Z" fill="url(#kbd)" opacity=".9"/>
+          <path d="M232 610 452 624 408 642 178 626Z" fill="#c3cadb" opacity=".8"/>
+          <path d="M720 640 876 594" stroke="#1d2644" stroke-width="7" stroke-linecap="round" opacity=".7"/>
+          <path d="M386 552 888 572 886 582 386 560Z" fill="#202a4c"/>
+
+          <!-- الشاشة -->
+          <path d="M462 112 926 41Q956 37 953 66L898 556Q896 574 878 573L404 556Q384 555 387 536L440 138Q443 115 462 112Z" fill="url(#bez)"/>
+          <path d="M466 136 910 68Q924 66 922 82L874 548Q872 560 860 560L408 546Q397 545 399 533L448 152Q450 139 466 136Z" fill="url(#scr)"/>
+          <path d="M448 152 922 66 900 250Q640 190 424 340Z" fill="#fff" opacity=".07" clip-path="url(#scrClip)"/>
+          <path d="M668 172C694 196 728 207 768 211C768 300 768 420 636 476C556 420 548 330 566 222C604 218 640 204 668 172Z" fill="none" stroke="#e8eefc" stroke-width="22" stroke-linejoin="round"/>
+          <path d="M606 328 632 362 700 284" fill="none" stroke="#e8eefc" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+
+          <!-- العدسة -->
+          <path d="M1000 466 1034 508" stroke="#555c74" stroke-width="22" stroke-linecap="round"/>
+          <path d="M1042 512 1122 608" stroke="#262d4c" stroke-width="44" stroke-linecap="round"/>
+          <path d="M1036 500 1098 574" stroke="#4d5676" stroke-width="8" stroke-linecap="round" opacity=".8"/>
+          <ellipse cx="918" cy="376" rx="102" ry="112" fill="#eef2fb" opacity=".55"/>
+          <path d="M888 270 936 266 908 486 888 482A102 112 0 0 1 850 290Z" fill="url(#lens)" opacity=".9"/>
+          <ellipse cx="918" cy="376" rx="102" ry="112" fill="url(#lens)" opacity=".28"/>
+          <ellipse cx="918" cy="376" rx="102" ry="112" fill="none" stroke="url(#ring)" stroke-width="20"/>
+          <path d="M848 330A78 88 0 0 1 900 288" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".6"/>
+        </svg>
+      </div>
+
+      <div class="hero-tx">
+        <h1><b>تَبيّن</b> .. قبل أن تثق</h1>
+        <p>أداة ذكية تساعدك على تحليل الروابط والمواقع <br>ومعرفة ما إذا كانت آمنة أم احتيالية.</p>
+        <button type="button" class="cta" id="cta"><svg><use href="#i-search"/></svg>ابدأ الفحص الآن</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap home-in">
+    <section class="scan card">
+      <form id="scanForm" class="scan-f" novalidate autocomplete="off">
+        <h2><svg><use href="#i-search"/></svg><label for="url">تحليل الرابط أو الموقع</label></h2>
+        <p class="scan-sub">أدخل الرابط الذي تريد التحقق منه، وسيتم تحليله خلال ثوانٍ.</p>
+        <div class="field">
+          <svg><use href="#i-link"/></svg>
+          <input id="url" name="url" type="text" inputmode="url" dir="ltr" placeholder="https://example.com" spellcheck="false" autocapitalize="off" aria-describedby="urlErr">
+        </div>
+        <p class="err" id="urlErr" role="alert"></p>
+        <button type="submit" class="go" id="go"><svg><use href="#i-scan"/></svg><span class="spin" aria-hidden="true"></span><span id="goTx">تحليل الرابط</span></button>
+      </form>
+      <div class="scan-art" aria-hidden="true">
+        <svg viewBox="0 0 1100 600">
+          <defs>
+            <linearGradient id="wBar" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c7d2f0"/><stop offset=".6" stop-color="#d6def4"/><stop offset="1" stop-color="#edf1fb"/></linearGradient>
+            <linearGradient id="wBody" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#cfd9f3"/><stop offset=".5" stop-color="#dde5f7"/><stop offset="1" stop-color="#f1f4fc"/></linearGradient>
+            <linearGradient id="chain" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#1c459c"/><stop offset="1" stop-color="#33569f"/></linearGradient>
+            <filter id="wSh" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="6" dy="16" stdDeviation="14" flood-color="#8d9cc7" flood-opacity=".4"/></filter>
+          </defs>
+          <path d="M136 76 720 32Q746 30 746 56L738 490Q738 506 722 507L180 516Q110 518 108 462L104 108Q104 78 136 76Z" fill="#fff" filter="url(#wSh)"/>
+          <path d="M136 76 720 32Q746 30 746 56L744 128 106 160 104 108Q104 78 136 76Z" fill="url(#wBar)"/>
+          <path d="M152 190 720 160 714 470 168 494Q156 494 156 482Z" fill="url(#wBody)"/>
+          <g fill="#8b97bd"><circle cx="157" cy="117" r="10"/><circle cx="195" cy="115" r="10"/><circle cx="236" cy="112" r="10"/></g>
+          <g fill="none" stroke="url(#chain)" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M421 270 464 234A37 37 0 0 1 506 290L466 330Q440 356 408 328"/>
+            <path d="M419 372 378 408A37 37 0 0 1 332 354L376 312Q404 288 432 318"/>
+          </g>
+          <path d="M678 206H742A78 78 0 0 1 742 364H654Q634 366 612 380 628 354 624 342A78 78 0 0 1 678 206Z" fill="#f47b20"/>
+          <path d="M697 246Q697 236 711 236T725 246L720 300Q720 308 711 308T702 300Z" fill="#fff"/><circle cx="711" cy="324" r="13" fill="#fff"/>
+        </svg>
+      </div>
+    </section>
+
+    <section class="safe">
+      <div class="safe-tips">
+        <h3>نصائح إضافية:</h3>
+        <ul>
+          <li><svg><use href="#i-check-c"/></svg>تأكد دائماً من مصدر الروابط.</li>
+          <li><svg><use href="#i-check-c"/></svg>لا تشارك بياناتك الشخصية مع أي جهة غير موثوقة.</li>
+        </ul>
+      </div>
+      <div class="safe-main">
+        <div><h2>الموقع آمن</h2><p>لا توجد مؤشرات على وجود تهديدات حالياً.</p></div>
+        <svg class="safe-sh" viewBox="0 0 178 110" aria-hidden="true">
+          <path d="M127 4C137 12 150 16 166 18V52C166 76 152 92 128 104 104 92 90 76 90 52V18C106 16 117 12 127 4Z" fill="#3fae64"/>
+          <path d="M111 54 123 66 146 40" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+          <g fill="none" stroke-width="6" stroke-linecap="round"><path d="M32 10 50 30" stroke="#8ec59e"/><path d="M10 50 34 53" stroke="#bfe0c6"/><path d="M32 84 43 77" stroke="#d8ecdb"/></g>
+        </svg>
+      </div>
+    </section>
+
+    <section class="tips">
+      <article class="card tip"><svg><use href="#i-shield-check"/></svg><h3>احمِ بياناتك</h3><p>لا تشارك معلوماتك الشخصية <br>أو البنكية مع أي جهة مجهولة.</p></article>
+      <article class="card tip"><svg><use href="#i-tri"/></svg><h3>تحقق قبل الضغط</h3><p>راجع مصدر الرابط وتأكد <br>من صحته.</p></article>
+      <article class="card tip"><svg><use href="#i-lock"/></svg><h3>استخدم المصادر الرسمية</h3><p>للحصول على المعلومات والخدمات <br>من الجهات المعتمدة فقط.</p></article>
+      <article class="card tip"><svg><use href="#i-grad"/></svg><h3>تعلم وشارك</h3><p>لنشر الوعي الأمني بين أفراد المجتمع.</p></article>
+    </section>
+  </div>
+
+  <footer class="foot">
+    <div class="wrap foot-in">
+      <span class="foot-logo"><svg><use href="#i-logo"/></svg>تَبيّن</span>
+      <span class="foot-sep"></span>
+      <span class="foot-slogan">معاً.. نحو مجتمع أكثر وعياً وأماناً رقمياً</span>
+      <span class="foot-by"><svg><use href="#i-rosette"/></svg>مبادرة مجتمعية برعاية جائزة الأميرة صيتة</span>
+      <span class="foot-sep foot-sep2"></span>
+      <span class="foot-soc"><svg><use href="#i-ig"/></svg><svg><use href="#i-yt"/></svg><svg><use href="#i-x"/></svg></span>
+    </div>
+  </footer>
+</main>
+
+<!-- ============ صفحة النتيجة ============ -->
+<main id="result" class="view view-result" data-level="high" tabindex="-1">
+  <div class="wrap">
+    <div class="steps-nav">
+      <a class="st-a" href="#/"><span class="st-ic"><svg><use href="#i-link"/></svg></span>تحليل الرابط</a>
+      <span class="st-dash"></span>
+      <span class="st-b"><svg><use href="#i-check-c"/></svg>النتيجة</span>
+    </div>
+
+    <div class="r-grid">
+      <div class="r-main">
+        <section class="banner">
+          <span class="b-ic"><svg class="halo" viewBox="0 0 115 120" aria-hidden="true"><path d="M57 0C75 1 95 13 106 25 114 33 115 40 115 55 115 75 113 89 102 104 92 111 73 120 57 120 42 120 22 111 12 104 2 89 0 73 0 50 0 39 2 33 9 25 20 13 40 1 57 0z"/></svg><svg><use id="bIcon" href="#i-shield-excl"/></svg></span>
+          <div class="b-tx">
+            <span class="badge" id="bBadge">اشتباه مرتفع</span>
+            <h1><b id="bLead">تحذير:</b> <span id="bTitle">الرابط على الأرجح احتيالي</span></h1>
+            <p id="bSub"></p>
+          </div>
+        </section>
+
+        <section class="urlbar">
+          <span class="u-l"><svg><use href="#i-link"/></svg>الرابط الذي تم تحليله</span>
+          <span class="u-v" id="uVal" dir="ltr"></span>
+          <button type="button" class="u-copy" id="copy" aria-label="نسخ الرابط" title="نسخ الرابط"><svg><use href="#i-copy"/></svg></button>
+        </section>
+
+        <section class="card ind">
+          <h2><svg><use href="#i-shield"/></svg><span id="indTitle">أبرز مؤشرات الاشتباه</span></h2>
+          <ul id="indList"></ul>
+        </section>
+
+        <section class="todo"><div class="todo-in">
+          <h2><svg><use href="#i-question-fill"/></svg><span>ماذا تفعل إذا أدخلت بياناتك بالفعل؟</span></h2>
+          <ol id="todoList"></ol>
+        </div></section>
+      </div>
+
+      <div class="r-side">
+        <section class="card gauge">
+          <h2>مستوى الخطورة</h2>
+          <div class="g-box">
+            <svg viewBox="0 0 225 130" aria-hidden="true">
+              <defs><linearGradient id="gArc" gradientUnits="userSpaceOnUse" x1="10" y1="60" x2="215" y2="60"><stop class="ga" offset="0"/><stop class="gb" offset=".55"/><stop class="gc" offset="1"/></linearGradient></defs>
+              <path class="g-tr" d="M13 115A99.500 99.500 0 0 1 212 115" pathLength="100"/>
+              <path class="g-ar" id="gArcPath" d="M13 115A99.500 99.500 0 0 1 212 115" pathLength="100"/>
+            </svg>
+            <div class="g-val" dir="ltr"><small>%</small><span id="gVal">90</span></div>
+          </div>
+          <span class="badge" id="gBadge">مرتفع</span>
+        </section>
+
+        <section class="card mean">
+          <h2><svg><use href="#i-info-fill"/></svg>ماذا يعني ذلك؟</h2>
+          <p id="mean"></p>
+        </section>
+
+        <section class="card recs">
+          <h2><svg><use href="#i-shield-check"/></svg>التوصيات والإجراءات</h2>
+          <ul id="recs"></ul>
+        </section>
+      </div>
+    </div>
+
+    <div class="r-bot">
+      <section class="note"><div class="note-in">
+        <h2><svg><use href="#i-info"/></svg>تنبيه مهم</h2>
+        <p>هذه النتيجة مبنية على مؤشرات تحليلية متاحة، ولا تعني ضمانًا مطلقًا بأن الرابط غير آمن أو آمن تمامًا، لذا يُنصح دائماً بالحذر والتحقق من الجهة عبر قنواتها الرسمية.</p>
+      </div></section>
+      <section class="card contact">
+        <h2><svg><use href="#i-shield-phone"/></svg>الإبلاغ والتواصل مع الجهات المختصة</h2>
+        <div class="c-row" id="contacts">
+          <div class="c-box"><div><b>البنك المعني</b><span>(خدمة العملاء)</span><strong>حسب البنك</strong></div><svg><use href="#i-bank"/></svg></div>
+          <div class="c-box"><div><b>البنك المركزي السعودي</b><span>(SAMA)</span><strong dir="ltr">800 125 6666</strong></div><img src="assets/sama.png" alt=""></div>
+          <div class="c-box"><div><b>الجهات الامنية</b><span>(الجرائم المعلوماتية)</span><strong>911</strong></div><img src="assets/emblem-ksa.png" alt=""></div>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<script src="js/official-domains.js?v=5"></script>
+<script src="js/analyzer.js?v=5"></script>
+<script src="js/app.js?v=5"></script>
+</body>
+</html>
